@@ -6,7 +6,14 @@ const CategoriesScreen = (props) => {
         <View style = {styles.screen}>
             <Text>This is the categoriesScreen</Text>
             <Button title = "Go to Meals" onPress = {() => {
-                props.navigation.navigate({routeName: 'CategoryMeal'});
+                //It is possible to navigate
+                // props.navigation.navigate({routeName: 'CategoryMeal'});
+                //It is possible to replace the stack as well
+                props.navigation.replace('CategoryMeal')
+            }}></Button>
+            {/* Use push to back to the same page */}
+            <Button title = "Go to Meals with push" onPress = {() => {
+                props.navigation.push('Categories');
             }}></Button>
         </View>
     );
