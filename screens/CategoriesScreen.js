@@ -1,22 +1,38 @@
 import React from 'react'
-import {StyleSheet, View, Text, Button} from 'react-native'
+import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Platform} from 'react-native'
+import {CATEGORIES} from '../data/dummy-data'
+
+import CategoryGridTile from '../components/CategoryGridTile'
+
+
 
 const CategoriesScreen = (props) => {
+
+    const renderGridItem = (itemData) => {
+        return (
+            <CategoryGridTile title = {itemData.item.title}
+                              onSelect = {() => {
+                                props.navigation.navigate({routeName: 'CategoryMeal', params : {
+                                    categoryId: itemData.item.id
+                                }});
+                              }}
+                              color = {itemData.item.color}>
+
+            </CategoryGridTile>
+        );
+    }
+
     return (
-        <View style = {styles.screen}>
-            <Text>This is the categoriesScreen</Text>
-            <Button title = "Go to Meals" onPress = {() => {
-                //It is possible to navigate
-                // props.navigation.navigate({routeName: 'CategoryMeal'});
-                //It is possible to replace the stack as well
-                props.navigation.replace('CategoryMeal')
-            }}></Button>
-            {/* Use push to back to the same page */}
-            <Button title = "Go to Meals with push" onPress = {() => {
-                props.navigation.push('Categories');
-            }}></Button>
-        </View>
+        <FlatList keyExtractor = {(item, index) => item.id}
+                  data         = {CATEGORIES}
+                  renderItem   = {(item) => renderGridItem(item)} 
+                  numColumns   = {2}>
+        </FlatList>
     );
+}
+
+CategoriesScreen.navigationOptions = {
+    headerTitle: 'Meal Categories',
 }
 
 const styles = StyleSheet.create({
