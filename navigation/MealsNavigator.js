@@ -1,13 +1,17 @@
+import React from 'react'
 import {Platform} from 'react-native'
+import {Ionicons} from '@expo/vector-icons'
 
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
 // import {createBottomTabNavigator} from 'react-navigation-tabs';
 // import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import CategoriesScreen from '../screens/CategoriesScreen'
 import CategoryMealsScreen from '../screens/CategoryMealScreen'
 import MealDetailScreen from '../screens/MealDetailScree'
+import FavoritesScreen from '../screens/FavoritesScreen'
 
 import Colors from '../constants/Colors'
 
@@ -31,5 +35,26 @@ const MealsNavigator = createStackNavigator ({
     },
     headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 }});
+/**
+ * Way to combine multiple navigations
+ */
+const MealsFavTabNavigator = createBottomTabNavigator({
+    Meals: {screen: MealsNavigator, navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+            return <Ionicons name = "ios-restaurant" size = {25} color = {tabInfo.tintColor}></Ionicons>
+        }
+    }},
+    Favorites: {screen: FavoritesScreen, navigationOptions: {
+        tabBarLabel: "Favorites",
+        tabBarIcon: (tabInfo) => {
+            return <Ionicons name = "ios-star" size = {25} color = {tabInfo.tintColor}></Ionicons>
+        }
+    }}
+}, {
+    tabBarOptions: {
+        activeTintColor: Colors.primaryColor,
 
-export default createAppContainer(MealsNavigator);
+    }
+});
+
+export default createAppContainer(MealsFavTabNavigator);

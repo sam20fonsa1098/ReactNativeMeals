@@ -21,7 +21,10 @@ styles = StyleSheet.create({
     gridItem: {
         flex: 1,
         margin: 15,
-        height: 150
+        height: 150,
+        borderRadius: 10,
+        overflow: Platform.OS === 'android' ? 'hidden' : "visible",
+        elevation: 5
     },
     container: {
         flex: 1,
