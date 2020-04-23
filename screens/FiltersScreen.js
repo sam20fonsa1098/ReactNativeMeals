@@ -31,7 +31,7 @@ const FiltersScreen = (props) => {
         const appliedFilters = {
             glutenFree: isGlutenFree,
             lactoseFree: isLactoseFree,
-            vegan: isVeganFree,
+            vegan: isVegan,
             vegetarian: isVegetarian
         }
 
